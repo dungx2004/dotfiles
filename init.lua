@@ -8,31 +8,30 @@ Plug('nvim-lualine/lualine.nvim')
 Plug('pysan3/fcitx5.nvim')
 Plug('nvim-treesitter/nvim-treesitter')
 Plug('neovim/nvim-lspconfig')
-Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-buffer')
-Plug('hrsh7th/cmp-path')
-Plug('hrsh7th/cmp-cmdline')
 Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
 vim.call('plug#end')
 
 vim.g.mapleader=' '
 
 vim.o.rnu = true
 vim.o.nu = true
-vim.o.shiftwidth = 8
-vim.o.tabstop = 8
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.cmd.colorscheme('kanagawa-wave')
 vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
-vim.cmd('inoremap <silent> <C-s> <Esc>:w<CR>')
+vim.cmd('inoremap <silent> <C-s> <Esc>:w<CR>a')
 vim.cmd('nnoremap <silent> <leader>s :w<CR>')
 vim.cmd('nnoremap <silent> <leader>x :x<CR>')
 
-vim.lsp.enable('pyright')
+require('mason').setup()
+require('mason-lspconfig').setup()
 vim.lsp.enable('clangd')
 vim.lsp.enable('lua_ls')
+vim.lsp.enable('pylsp')
 
 vim.diagnostic.config({virtual_text = true})
 
@@ -46,17 +45,15 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
-		['<M-b>'] = cmp.mapping.scroll_docs(-5),
-		['<M-f>'] = cmp.mapping.scroll_docs(5),
-		['<M-Space>'] = cmp.mapping.complete(),
+		['<M-j>'] = cmp.mapping.scroll_docs(5),
+		['<M-k>'] = cmp.mapping.scroll_docs(-5),
 		['<M-e>']= cmp.mapping.abort(),
-		['<Tab>'] = cmp.mapping.confirm({select = true}),
-		['<M-j>'] = cmp.mapping.select_next_item(),
-		['<M-k>'] = cmp.mapping.select_prev_item(),
+		['<CR>'] = cmp.mapping.confirm({select = true}),
+		['<Tab>'] = cmp.mapping.select_next_item(),
+		['<S-Tab>'] = cmp.mapping.select_prev_item(),
 	}),
 	sources = cmp.config.sources({
 		{name = 'nvim_lsp'},
-		{name = 'buffer'},
 	})
 })
 
@@ -74,7 +71,6 @@ require('lualine').setup({
 	},
 	sections = {
 		lualine_b = {},
-		lualine_c = {'filename', 'diagnostics'},
-		lualine_x = {'branch'},
+		lualine_x = {'branch', 'diff'},
 	},
 })
