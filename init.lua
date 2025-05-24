@@ -2,7 +2,7 @@ local vim = vim
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
-Plug('rebelot/kanagawa.nvim')
+Plug('EdenEast/nightfox.nvim')
 Plug('windwp/nvim-autopairs')
 Plug('nvim-lualine/lualine.nvim')
 Plug('pysan3/fcitx5.nvim')
@@ -21,7 +21,7 @@ vim.o.nu = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.cmd.colorscheme('kanagawa-wave')
+vim.cmd.colorscheme('nightfox')
 vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
 vim.cmd('inoremap <silent> <C-s> <Esc>:w<CR>a')
 vim.cmd('nnoremap <silent> <leader>s :w<CR>')
@@ -31,9 +31,8 @@ require('mason').setup()
 require('mason-lspconfig').setup()
 vim.lsp.enable('clangd')
 vim.lsp.enable('lua_ls')
-vim.lsp.enable('pylsp')
 
-vim.diagnostic.config({virtual_text = true})
+vim.diagnostic.config({virtual_text = true, signs = false})
 
 require('nvim-autopairs').setup({})
 
@@ -45,16 +44,16 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
-		['<M-j>'] = cmp.mapping.scroll_docs(5),
-		['<M-k>'] = cmp.mapping.scroll_docs(-5),
+		['<M-d>'] = cmp.mapping.scroll_docs(5),
+		['<M-u>'] = cmp.mapping.scroll_docs(-5),
 		['<M-e>']= cmp.mapping.abort(),
 		['<CR>'] = cmp.mapping.confirm({select = true}),
-		['<Tab>'] = cmp.mapping.select_next_item(),
-		['<S-Tab>'] = cmp.mapping.select_prev_item(),
+		['<M-j>'] = cmp.mapping.select_next_item(),
+		['<M-k>'] = cmp.mapping.select_prev_item(),
 	}),
 	sources = cmp.config.sources({
 		{name = 'nvim_lsp'},
-	})
+	}),
 })
 
 require('fcitx5').setup({
