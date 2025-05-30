@@ -14,11 +14,12 @@ Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 vim.call('plug#end')
 
-vim.cmd.colorscheme('kanagawa')
 vim.o.rnu = true
 vim.o.nu = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+vim.cmd.colorscheme('kanagawa')
 
 vim.g.mapleader=' '
 vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
@@ -77,6 +78,6 @@ require('lualine').setup({
 	},
 	sections = {
 		lualine_b = {},
-		lualine_x = {'diagnostics', 'branch', 'diff'},
+		lualine_x = {'diagnostics', 'branch',' diff'},
 	},
 })
