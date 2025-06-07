@@ -24,6 +24,7 @@ vim.cmd.colorscheme('kanagawa')
 vim.g.mapleader=' '
 vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
 vim.cmd('nnoremap <silent> <leader>s :w<CR>')
+vim.cmd('nnoremap <silent> <leader>x :x<CR>')
 vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
 vim.cmd('nnoremap <silent> <leader>r :set rnu<CR>')
 vim.cmd('nnoremap <silent> <leader>n :set nornu<CR>')
