@@ -21,21 +21,16 @@ vim.o.smartcase = true
 
 vim.cmd.colorscheme('kanagawa')
 
-vim.g.mapleader=' '
+vim.g.mapleader = ' '
 vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
 vim.cmd('nnoremap <silent> <leader>s :w<CR>')
-vim.cmd('nnoremap <silent> <leader>x :x<CR>')
-vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
-vim.cmd('nnoremap <silent> <leader>r :set rnu<CR>')
-vim.cmd('nnoremap <silent> <leader>n :set nornu<CR>')
+vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>') -- Reset LSP va treesitter khi caanf
 
 require('nvim-autopairs').setup({})
 
 require('mason').setup()
 require('mason-lspconfig').setup()
-vim.lsp.enable('clangd')
-vim.lsp.enable('lua_ls')
-vim.diagnostic.config({virtual_text = true, signs = false})
+vim.diagnostic.config({ signs = false })
 
 local cmp = require('cmp')
 cmp.setup({

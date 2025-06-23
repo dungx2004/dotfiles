@@ -9,7 +9,6 @@ alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -lah'
-alias vi='nvim'
+alias zsteg='zsteg --no-color'
 
-alias update='sudo pacman -Syu ; yay -aur'
 alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
