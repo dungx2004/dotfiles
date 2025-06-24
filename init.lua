@@ -23,14 +23,15 @@ vim.cmd.colorscheme('kanagawa')
 
 vim.g.mapleader = ' '
 vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
-vim.cmd('nnoremap <silent> <leader>s :w<CR>')
-vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>') -- Reset LSP va treesitter khi caanf
+vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
+vim.cmd('nnoremap <silent> <leader>r :set rnu<CR>')
+vim.cmd('nnoremap <silent> <leader>n :set nornu<CR>')
 
 require('nvim-autopairs').setup({})
 
 require('mason').setup()
 require('mason-lspconfig').setup()
-vim.diagnostic.config({ signs = false })
+vim.diagnostic.config({ signs = false, jump = {float = true} })
 
 local cmp = require('cmp')
 cmp.setup({
