@@ -1,10 +1,18 @@
 local vim = vim
-local Plug = vim.fn['plug#']
+vim.o.rnu = true
+vim.o.nu = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
+vim.g.mapleader = ' '
+vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
+vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
+vim.cmd('nnoremap <silent> <leader>w <C-W>')
+
+local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 Plug('rebelot/kanagawa.nvim')
 Plug('windwp/nvim-autopairs')
-Plug('nvim-lualine/lualine.nvim')
 Plug('h-hg/fcitx.nvim')
 Plug('nvim-treesitter/nvim-treesitter')
 Plug('neovim/nvim-lspconfig')
@@ -14,24 +22,13 @@ Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 vim.call('plug#end')
 
-vim.o.rnu = true
-vim.o.nu = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
 vim.cmd.colorscheme('kanagawa')
 
-vim.g.mapleader = ' '
-vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
-vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
-vim.cmd('nnoremap <silent> <leader>r :set rnu<CR>')
-vim.cmd('nnoremap <silent> <leader>n :set nornu<CR>')
-
-require('nvim-autopairs').setup({})
+require('nvim-autopairs').setup()
 
 require('mason').setup()
 require('mason-lspconfig').setup()
-vim.diagnostic.config({ signs = false, jump = {float = true} })
+vim.diagnostic.config({ signs = false, severity_sort = true })
 
 local cmp = require('cmp')
 cmp.setup({
@@ -64,16 +61,4 @@ cmp.setup({
 			return item
 		end
 	}
-})
-
-require('lualine').setup({
-	options = {
-		icons_enabled = false,
-		component_separators = { left = '', right = ''},
-		section_separators = { left = '', right = ''},
-	},
-	sections = {
-		lualine_b = {},
-		lualine_x = {'diagnostics', 'branch',' diff'},
-	},
 })
