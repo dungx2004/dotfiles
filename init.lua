@@ -1,14 +1,3 @@
-local vim = vim
-vim.o.rnu = true
-vim.o.nu = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.g.mapleader = ' '
-vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
-vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
-vim.cmd('nnoremap <silent> <leader>w <C-W>')
-
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 Plug('rebelot/kanagawa.nvim')
@@ -16,11 +5,23 @@ Plug('windwp/nvim-autopairs')
 Plug('h-hg/fcitx.nvim')
 Plug('nvim-treesitter/nvim-treesitter')
 Plug('neovim/nvim-lspconfig')
-Plug('hrsh7th/nvim-cmp')
-Plug('hrsh7th/cmp-nvim-lsp')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
+Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('RaafatTurki/hex.nvim')
 vim.call('plug#end')
+
+vim.o.rnu = true
+vim.o.nu = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+vim.g.mapleader = ' '
+vim.cmd('nnoremap <silent> <leader>s :w<CR>')
+vim.cmd('nnoremap <silent> <leader>h :noh<CR>')
+vim.cmd('nnoremap <silent> <leader>e :w<CR>:e<CR>')
+vim.cmd('nnoremap <silent> <leader>b :HexToggle<CR>')
 
 vim.cmd.colorscheme('kanagawa')
 
@@ -28,7 +29,7 @@ require('nvim-autopairs').setup()
 
 require('mason').setup()
 require('mason-lspconfig').setup()
-vim.diagnostic.config({ signs = false, severity_sort = true })
+vim.diagnostic.config({ signs = false, severity_sort = true, jump = {float = true} })
 
 local cmp = require('cmp')
 cmp.setup({
@@ -62,3 +63,5 @@ cmp.setup({
 		end
 	}
 })
+
+require('hex').setup()
