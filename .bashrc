@@ -12,3 +12,4 @@ alias la='ls -lah'
 alias zsteg='zsteg --no-color'
 
 alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
+alias nvidia='export __NV_PRIME_RENDER_OFFLOAD=1 && export __GLX_VENDOR_LIBRARY_NAME=nvidia'
