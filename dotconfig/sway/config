@@ -36,8 +36,8 @@ output * bg /home/zungx/Pictures/wallpaper.jpg fill
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         timeout 150 'swaylock -f -c 000000' \
+         timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -227,10 +227,10 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     status_command while echo \
-        $(if [[ $(fcitx5-remote -n) == 'bamboo' ]]; then echo vi; else echo en; fi) \| \
+        $(if [[ $(fcitx5-remote) == 2 ]]; then echo vi; else echo en; fi) \| \
         $(pactl get-sink-volume \@DEFAULT_SINK@ | head -n1 | cut -d'/' -f2) \| \
-        $(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) \| \
-        $(date +'%H:%M %a %d/%m/%Y');\
+        $(date +'%H:%M %a %d/%m/%Y') \| \
+        $(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status); \
         do sleep 0.1; done
 
     colors {
