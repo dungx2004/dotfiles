@@ -5,6 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 exec fcitx5 -d
+exec mako
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -88,7 +89,7 @@ input type:keyboard {
 	bindsym $mod+Shift+c reload
 
 	# Exit sway (logs you out of your Wayland session)
-	bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+	bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -220,18 +221,19 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-	height 32
 	font 'monospace 12'
 
 	# When the status_command prints a new line to stdout, swaybar updates.
 	# The default just shows the current date and time.
-	status_command while echo $(date +'%H:%M %a %d/%m/%Y') \| \
-		$(pactl get-sink-volume \@DEFAULT_SINK@ | head -n1 | cut -d'/' -f2) \|; \
+	status_command while echo \
+		$(pactl get-sink-volume \@DEFAULT_SINK@ | head -n1 | cut -d'/' -f2) \| \
+		$(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) \| \
+		$(date +'%H:%M %a %d/%m/%Y') \|;\
 		do sleep 0.1; done
 
 	colors {
 		statusline #ffffff
-		background #242424
+		background #000000
 		inactive_workspace #323232 #323232 #5c5c5c
 	}
 }
