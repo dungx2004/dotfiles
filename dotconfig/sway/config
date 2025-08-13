@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 exec fcitx5 -d
-exec mako
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -36,8 +36,8 @@ output * bg /home/zungx/Pictures/wallpaper.jpg fill
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         timeout 150 'swaylock -f -c 000000' \
+         timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -51,7 +51,7 @@ exec swayidle -w \
 input type:touchpad {
     dwt enabled
     tap enabled
-    pointer_accel 0.5
+    pointer_accel 0.7
     natural_scroll enabled
     middle_emulation enabled
 }
@@ -59,7 +59,7 @@ input type:touchpad {
 input type:keyboard {
     pointer_accel 0.3
     xkb_layout "us"
-    xkb_options "grp:caps_toggle"
+    xkb_options "grp:caps_toggle, altwin:swap_ralt_rwin"
 }
 #
 # You can also configure each device individually.
@@ -209,7 +209,9 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    bindsym Ctrl+Down exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym Ctrl+Up exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
@@ -227,11 +229,12 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     status_command while echo \
-        $(if [[ $(fcitx5-remote -n) == 'bamboo' ]]; then echo vi; else echo en; fi) \| \
-        $(pactl get-sink-volume \@DEFAULT_SINK@ | head -n1 | cut -d'/' -f2) \| \
-        $(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) \| \
-        $(date +'%H:%M %a %d/%m/%Y');\
-        do sleep 0.1; done
+        $(if [[ $(fcitx5-remote) == 2 ]]; then echo vi; else echo en; fi) \| \
+        $(pactl get-sink-volume \@DEFAULT_SINK@ | head -n1 | cut -d'/' -f2) \
+	$(if [[ $(pactl get-sink-mute \@DEFAULT_SINK@) == *"yes" ]]; then echo Muted; fi) \| \
+        $(date +'%a %d/%m/%Y %H:%M') \| \
+        $(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status); \
+        do sleep 0.5; done
 
     colors {
         statusline #ffffff

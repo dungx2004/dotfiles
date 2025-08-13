@@ -55,9 +55,11 @@ cmp.setup({
 			local MAX_LABEL_WIDTH = 20
 			local content = item.abbr
 			if #content > MAX_LABEL_WIDTH then
-				item.abbr = vim.fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. '…'
+				item.abbr = vim.fn.strcharpart(content, 0,
+				MAX_LABEL_WIDTH) .. '…'
 			else
-				item.abbr = content .. (' '):rep(MAX_LABEL_WIDTH - #content)
+				item.abbr = content .. (' '):rep(MAX_LABEL_WIDTH
+				- #content)
 			end
 			return item
 		end
